@@ -1,0 +1,62 @@
+
+//users
+create table users(
+   id INT NOT NULL AUTO_INCREMENT,
+   first_name VARCHAR(100) NOT NULL,
+   last_name VARCHAR(100) NOT NULL,
+   email VARCHAR(100) NOT NULL,
+   password  VARCHAR(32) NOT NULL,
+   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+   is_admin TINYINT(1) NOT NULL,
+   UNIQUE KEY(email),
+   PRIMARY KEY ( id )
+);
+
+//tickets-categories
+create table ticket_categories(
+    id INT NOT NULL AUTO_INCREMENT,
+    title VARCHAR(25) NOT NULL,
+    UNIQUE KEY(title),
+    PRIMARY KEY ( id )
+);
+
+//tickets-statuses
+create table ticket_statuses(
+    id INT NOT NULL AUTO_INCREMENT,
+    title VARCHAR(25) NOT NULL,
+    UNIQUE KEY(title),
+    PRIMARY KEY ( id )
+);
+
+
+//tickets
+create table tickets(
+    id INT NOT NULL AUTO_INCREMENT,
+    description TEXT NOT NULL,
+    status INT NOT NULL,
+    category INT NOT NULL,
+    created_by INT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY ( id ),
+    FOREIGN KEY (status) REFERENCES  ticket_statuses(id),
+    FOREIGN KEY (category) REFERENCES  ticket_categories(id),
+    FOREIGN KEY (created_by) REFERENCES  users(id)
+);
+
+// insert to tickets
+insert into tickets(description, status, category, created_by) values ("i am facing this big issue", 1,1,1);
+//select tickets
+select * from tickets join ticket_statuses where tickets.status = ticket_statuses.id;
+
+//comments
+create table comments(
+    id INT NOT NULL AUTO_INCREMENT,
+    comment TEXT NOT NULL,
+    ticket_id INT NOT NULL,
+    created_by INT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY ( id ),
+    FOREIGN KEY (ticket_id) REFERENCES  tickets(id),
+    FOREIGN KEY (created_by) REFERENCES  users(id)
+);
+
