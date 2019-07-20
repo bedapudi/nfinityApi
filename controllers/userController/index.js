@@ -7,7 +7,7 @@ module.exports = {
                     console.log(err);
                     return reject(err);
                 }
-                var sql = "SELECT * FROM users WHERE email= ? AND password = ?";
+                var sql = "SELECT id, is_admin FROM users WHERE email= ? AND password = ?";
                 connection.query(sql, [email, password], function (err, result) {
                     connection.release(); // always put connection back in pool after last query
                     if (err) {
@@ -15,7 +15,7 @@ module.exports = {
                         return reject("db error");
                     } else {
                         if(result.length){
-                            return resolve(true)
+                            return resolve(result[0])
                         } else {
                             return reject(true)
                         }
