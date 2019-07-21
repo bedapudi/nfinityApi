@@ -29,6 +29,7 @@ api.use(basicAuth)
 
 const pool = require('../db')
 const userController = require('../controllers/userController')
+const ticketController = require('../controllers/ticketController')
 
 pool.getConnection(function(err, connection) {
   if(err) { 
@@ -81,6 +82,46 @@ api.delete('/deleteUser', (req, res)=>{
   }).catch(error => {
     res.send({error});
   })
+})
+
+api.get('/getTicketList', (req, res) => {
+  ticketController.getTicketList(req.user).then(tickets => {
+      res.send({ tickets: tickets });
+  }).catch(error => {
+    res.send({ error: error });
+  });
+})
+
+api.post('/addTicket', (req, res)=>{
+  ticketController.addTicket(req.body, req.user.id).then(ticket=>{
+    res.send(ticket);
+  }).catch(error => {
+    res.send({error});
+  })
+})
+
+api.post('/addComment', (req, res)=>{
+  ticketController.addComment(req.body.comment, req.user.id, req.body.ticketId).then(comment=>{
+    res.send(comment);
+  }).catch(error => {
+    res.send({error});
+  })
+})
+
+api.post('/updateTicket', (req, res)=>{
+  ticketController.updateTicket(req.body).then(result=>{
+    res.send(result);
+  }).catch(error => {
+    res.send({error});
+  })
+})
+
+api.get('/getCommentsForTicket', (req, res) => {
+  ticketController.getCommentsForTicket(req.query.ticketId).then(comments => {
+      res.send({ comments: comments });
+  }).catch(error => {
+    res.send({ error: error });
+  });
 })
 
 module.exports = api
