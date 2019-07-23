@@ -2,7 +2,6 @@ module.exports = basicAuth;
 const userController = require('../controllers/userController')
 
 async function basicAuth(req, res, next) {
-    // make authenticate path public
     if (req.path === '/login') {
         return next();
     }

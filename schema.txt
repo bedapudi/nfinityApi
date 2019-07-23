@@ -43,11 +43,6 @@ create table tickets(
     FOREIGN KEY (created_by) REFERENCES  users(id)
 );
 
-// insert to tickets
-insert into tickets(description, status, category, created_by) values ("i am facing this big issue", 1,1,1);
-//select tickets
-select * from tickets join ticket_statuses where tickets.status = ticket_statuses.id;
-
 //comments
 create table comments(
     id INT NOT NULL AUTO_INCREMENT,

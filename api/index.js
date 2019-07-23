@@ -41,6 +41,7 @@ pool.getConnection(function(err, connection) {
   api.listen(3010);
   console.log("app started")    
 });
+//test commit
 
 api.get('/ping', (req, res) => {
     res.send({ ping: true });

@@ -9,7 +9,7 @@ module.exports = {
                 }
                 var sql = "SELECT id, is_admin FROM users WHERE email= ? AND password = ?";
                 connection.query(sql, [email, password], function (err, result) {
-                    connection.release(); // always put connection back in pool after last query
+                    connection.release(); 
                     if (err) {
                         console.log(err);
                         return reject("db error");
@@ -34,7 +34,7 @@ module.exports = {
                 }
                 var sql = "SELECT * FROM users ORDER BY created_at DESC";
                 connection.query(sql, [], function (err, results) {
-                    connection.release(); // always put connection back in pool after last query
+                    connection.release();
                     if (err) {
                         console.log(err);
                         return reject("db error");
@@ -55,7 +55,7 @@ module.exports = {
                 }
                 var sql = "INSERT INTO USERS(first_name, last_name, email, password, is_admin) values(?, ?, ?, ?, ?)";
                 connection.query(sql, [userDetails.firstName, userDetails.lastName, userDetails.email, userDetails.password, userDetails.isAdmin], function (err, result) {
-                    connection.release(); // always put connection back in pool after last query
+                    connection.release();
                     if (err) {
                         console.log(err);
                         return reject("db error");
@@ -76,7 +76,7 @@ module.exports = {
                 }
                 var sql = "UPDATE USERS SET first_name = ?, last_name = ?, password= ?, is_admin = ? WHERE id = ?";
                 connection.query(sql, [userDetails.firstName, userDetails.lastName, userDetails.password, userDetails.isAdmin, userDetails.id], function (err, result) {
-                    connection.release(); // always put connection back in pool after last query
+                    connection.release();
                     if (err) {
                         console.log(err);
                         return reject("db error");
@@ -97,7 +97,7 @@ module.exports = {
                 }
                 var sql = "DELETE from USERS WHERE id =?";
                 connection.query(sql, [userId], function (err, result) {
-                    connection.release(); // always put connection back in pool after last query
+                    connection.release();
                     if (err) {
                         console.log(err);
                         return reject("db error");

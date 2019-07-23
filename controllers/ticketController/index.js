@@ -25,7 +25,7 @@ module.exports = {
                 }
                 
                 connection.query(sql, params, function (err, results) {
-                    connection.release(); // always put connection back in pool after last query
+                    connection.release(); 
                     if (err) {
                         console.log(err);
                         return reject("db error");
@@ -46,7 +46,7 @@ module.exports = {
                 }
                 var sql = "INSERT INTO TICKETS(description, status, category, created_by) values(?, ?, ?, ?)";
                 connection.query(sql, [ticketDetails.description, ticketDetails.status, ticketDetails.category, userId], function (err, result) {
-                    connection.release(); // always put connection back in pool after last query
+                    connection.release();
                     if (err) {
                         console.log(err);
                         return reject("db error");
@@ -68,7 +68,7 @@ module.exports = {
                 }
                 var sql = "UPDATE TICKETS SET description = ?, status = ?, category= ? WHERE id = ?";
                 connection.query(sql, [ticketDetails.description, ticketDetails.status, ticketDetails.category, ticketDetails.id], function (err, result) {
-                    connection.release(); // always put connection back in pool after last query
+                    connection.release();
                     if (err) {
                         console.log(err);
                         return reject("db error");
@@ -92,7 +92,7 @@ module.exports = {
                         "JOIN USERS ON COMMENTS.created_by = USERS.id " +
                         "WHERE ticket_id= ? ORDER BY comments.created_at"
                 connection.query(sql, params, function (err, results) {
-                    connection.release(); // always put connection back in pool after last query
+                    connection.release(); 
                     if (err) {
                         console.log(err);
                         return reject("db error");
@@ -122,7 +122,7 @@ module.exports = {
                                 "JOIN USERS ON COMMENTS.created_by = USERS.id " +
                                 "WHERE COMMENTS.id= ?"
                         connection.query(sql, [result.insertId], function (err, results) {
-                            connection.release(); // always put connection back in pool after last query
+                            connection.release();
                             if (err) {
                                 console.log(err);
                                 return reject("db error");
